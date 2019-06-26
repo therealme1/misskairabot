@@ -3,6 +3,7 @@ const i18n = require('../../utils/i18n');
 
 module.exports = bot => {
     bot.start(async ctx => {
+        console.log(ctx);
         ctx.reply(
             i18n(
                 await ctx.lang(),
