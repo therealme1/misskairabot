@@ -1,0 +1,12 @@
+bot/
+  index.js
+  locales/
+    en.json
+  migrations/
+    groups
+    users
+  utils/
+    i18n.js
+  handlers/
+    commands/
+    groups/

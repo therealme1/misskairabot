@@ -1,0 +1,6 @@
+{
+    "start": {
+        "private": "Hi <b>{{name}}</b>! Private",
+        "group": "Hi <b>{{name}}</b>! Group"
+    }
+}

@@ -1,0 +1,33 @@
+{
+    "name": "groupdriverbot",
+    "version": "0.1.0",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "dev": "nodemon index.js",
+        "lint": "eslint ."
+    },
+    "contributes": [
+        {
+            "name": "YouTwitFace",
+            "email": "contact@lungers.com"
+        },
+        {
+            "name": "Ansari",
+            "email": "ansari@thedevxen.com"
+        }
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "@youtwitface/escape-html": "^1.0.0",
+        "dotenv": "^8.0.0",
+        "knex": "^0.17.6",
+        "new-i18n": "^1.2.0",
+        "sqlite3": "^4.0.9",
+        "telegraf": "^3.30.1"
+    },
+    "devDependencies": {
+        "eslint": "^6.0.1",
+        "nodemon": "^1.19.1"
+    }
+}
