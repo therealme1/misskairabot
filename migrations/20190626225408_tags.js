@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
             table.integer('chat_id');
             table.string('name');
             table.string('text');
-            table.string('media');
+            table.string('caption');
             table.boolean('link_preview');
         })
     ]);
