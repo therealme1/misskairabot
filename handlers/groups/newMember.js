@@ -1,4 +1,5 @@
 const db = require('../../db');
+const welcomeParser = require('../../utils/welcomeParser');
 
 module.exports = bot => {
     bot.on('new_chat_members', ctx => {
@@ -23,6 +24,12 @@ module.exports = bot => {
                     return;
                 } catch (e) {
                     return;
+                }
+            } else {
+                const group = await db('groups').where({ chat_id: chat.id });
+                if (group[0].welcome_enabeld) {
+                    let p = welcomeParser(group[0].welcome_message);
+                    ctx.reply(p.text, p.extra);
                 }
             }
             const user = await db('users')
