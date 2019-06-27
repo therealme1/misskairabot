@@ -7,17 +7,7 @@
         "dev": "nodemon index.js",
         "lint": "eslint ."
     },
-    "contributes": [
-        {
-            "name": "YouTwitFace",
-            "email": "contact@lungers.com"
-        },
-        {
-            "name": "Ansari",
-            "email": "ansari@thedevxen.com"
-        }
-    ],
-    "license": "MIT",
+    "license": "GNU",
     "dependencies": {
         "@youtwitface/escape-html": "^1.0.0",
         "dotenv": "^8.0.0",
