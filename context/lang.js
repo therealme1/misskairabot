@@ -12,6 +12,10 @@ module.exports = bot => {
         return i18n(lang, keyword, variables);
     };
     bot.context.lang = async function() {
+        if (this.chat.type === 'private') {
+            const user = await db('users').where({ user_id: this.from.id });
+            return user[0].lang || 'en';
+        }
         const group = await db('groups')
             .select('lang')
             .where({
