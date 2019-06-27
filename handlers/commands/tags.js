@@ -5,13 +5,13 @@ module.exports = bot => {
         let { message } = ctx;
         const lang = await ctx.lang();
         const [, param] = ctx.match;
-        let tag_name, tag_value, caption;
+        let tag_name = param,
+            tag_value,
+            caption;
 
         if (param.match(/^\w+$/)) {
             if (message.reply_to_message) {
                 message = message.reply_to_message;
-
-                tag_name = param;
                 if (message.sticker) {
                     tag_value = 'file_' + message.sticker.file_id;
                 } else if (message.photo) {
@@ -29,7 +29,9 @@ module.exports = bot => {
             } else {
                 return ctx.reply(i18n(lang, 'tag.invalid_usage'));
             }
-        } else if (param.match(/^\w+ (.*)/)) {
+        } else if (param.match(/^(\w+) (.*)/)) {
+            tag_name = param.match(/^(\w+) (.*)/)[1];
+            tag_value = param.match(/^(\w+) (.*)/)[2];
         }
         let _tags = await db('tags').where({
             chat_id: ctx.chat.id,
@@ -61,18 +63,26 @@ module.exports = bot => {
         // TODO: Always reply deleted, and add confirmation buttons before deleting.
     });
     bot.command('tags', async ctx => {
+        const lang = await ctx.lang();
+        let message = '';
+
         let tags = await db('tags').where({
             chat_id: ctx.chat.id
         });
-        let message = '';
         if (tags.length > 0) {
             tags.forEach(tag => {
                 message += `◕ <code>${tag.name}</code>\n`;
             });
-            ctx.reply(message, {
-                parse_mode: 'Html'
-            });
-        }
+            ctx.reply(
+                i18n(lang, 'tag.display_tags', {
+                    tags: message,
+                    title: ctx.chat.title
+                }),
+                {
+                    parse_mode: 'Html'
+                }
+            );
+        } else return ctx.reply(i18n(lang, 'tag.empty'));
     });
     bot.hears(/^#(\w+)\b/, async ctx => {
         const tag = await db('tags').where({
