@@ -8,15 +8,15 @@ module.exports = bot => {
             .where({
                 chat_id: this.chat.id
             });
-        
+
         return i18n(lang, keyword, variables);
     };
     bot.context.lang = async function() {
-        const lang = await db('groups')
+        const group = await db('groups')
             .select('lang')
             .where({
                 chat_id: this.chat.id
             });
-        return lang[0] || 'en';
+        return group[0].lang || 'en';
     };
 };
