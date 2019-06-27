@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 node_modules/
 *.sqlite3
 .env
-=======
 # Logs
 logs
 *.log
@@ -64,4 +62,3 @@ typings/
 
 # next.js build output
 .next
->>>>>>> 0403b18f84e4503907018e12d48f2b64d1b67c32
