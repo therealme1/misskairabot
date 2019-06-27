@@ -18,7 +18,7 @@ module.exports = bot => {
                         lang: 'en',
                         created_at: new Date().toString(),
                         welcome_message: '',
-                        welcome_enabeld: false,
+                        welcome_enabled: false,
                         welcome_lp: true
                     });
                     return;
@@ -27,9 +27,14 @@ module.exports = bot => {
                 }
             } else {
                 const group = await db('groups').where({ chat_id: chat.id });
-                if (group[0].welcome_enabeld) {
+                if (group[0].welcome_enabled) {
                     let p = welcomeParser(group[0].welcome_message);
-                    ctx.reply(p.text, p.extra);
+                    ctx.reply(
+                        p.text,
+                        Object.assign(p.extra, {
+                            reply_to_message_id: ctx.message.message_id
+                        })
+                    );
                 }
             }
             const user = await db('users')
