@@ -5,7 +5,6 @@ module.exports = bot => {
         const { chat, new_chat_members } = ctx.message;
 
         new_chat_members.forEach(async member => {
-            console.log(ctx.botInfo);
             if (member.is_bot) {
                 // check if group allows bots
             }
@@ -16,7 +15,10 @@ module.exports = bot => {
                         chat_id: ctx.chat.id,
                         title: ctx.chat.title,
                         lang: 'en',
-                        created_at: new Date().toString()
+                        created_at: new Date().toString(),
+                        welcome_message: '',
+                        welcome_enabeld: false,
+                        welcome_lp: true
                     });
                     return;
                 } catch (e) {
