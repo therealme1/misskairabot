@@ -7,9 +7,10 @@ module.exports = bot => {
         const [entity] = (this.message.entities || []).filter(
             entity => entity.type === 'mention'
         );
-
         if (reply !== undefined) {
-            return reply.from;
+            return {
+                user_id: reply.from.id
+            };
         } else if (entity !== undefined) {
             const _user = message.text.substring(
                 entity.offset + 1,
