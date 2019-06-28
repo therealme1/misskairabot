@@ -15,6 +15,7 @@ module.exports = bot => {
             }
             try {
                 await ctx.kickChatMember(mentioned.user_id);
+                ctx.reply('user.banned');
             } catch (e) {
                 ctx.reply(i18n(lang, 'bot.no_admin_access'));
             }
@@ -33,7 +34,11 @@ module.exports = bot => {
                 return ctx.reply('user.already_in_group');
             }
             try {
-                await ctx.kickChatMember(mentioned.user_id);
+                await bot.telegram.unbanChatMember(
+                    ctx.chat.id,
+                    mentioned.user_id
+                );
+                ctx.reply('user.unbanned');
             } catch (e) {
                 ctx.reply(i18n(lang, 'bot.no_admin_access'));
             }
