@@ -16,6 +16,6 @@ module.exports = async (ctx, next) => {
         if (admin_commands.includes(command[1])) {
             if (is_user_admon) return next();
             else return ctx.reply('only_for_admin');
-        }
+        } else return next();
     }
 };
