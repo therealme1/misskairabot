@@ -3,6 +3,7 @@ const handlers = [
     'commands/tags',
     'commands/ban',
     'commands/kick',
+    'commands/purge',
     'commands/welcome',
     'groups/newMember'
 ];
