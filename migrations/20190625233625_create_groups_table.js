@@ -8,6 +8,7 @@ exports.up = function(knex, Promise) {
                 .notNull();
             table.string('title');
             table.string('lang');
+            table.integer('filter');
             table.string('welcome_message');
             table.boolean('welcome_enabled');
             table.boolean('welcome_lp');
