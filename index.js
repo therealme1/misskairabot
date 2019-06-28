@@ -3,9 +3,9 @@ require('dotenv').config();
 const Telegraf = require('telegraf');
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-const middlewares = ['admin', 'addUserToDb'];
-const contexts = ['args', 'lang', 'mentionedUser'];
-const plugins = ['ping', 'filter']; // default plugins
+const middlewares = ['checkForAdmin', 'addUserToDb'];
+const contexts = ['args', 'lang', 'admin', 'mentionedUser'];
+const plugins = ['ping', 'locks']; // default plugins
 
 contexts.forEach(ctx => {
     require(`./context/${ctx}`)(bot);
