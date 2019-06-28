@@ -17,5 +17,5 @@ module.exports = async (ctx, next) => {
             if (is_user_admon) return next();
             else return ctx.reply('only_for_admin');
         } else return next();
-    }
+    } else next();
 };
