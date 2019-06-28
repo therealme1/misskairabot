@@ -4,7 +4,6 @@ const welcomeParser = require('../../utils/welcomeParser');
 module.exports = bot => {
     bot.on('new_chat_members', ctx => {
         const { chat, new_chat_members } = ctx.message;
-
         new_chat_members.forEach(async member => {
             if (member.is_bot) {
                 // check if group allows bots
@@ -16,6 +15,7 @@ module.exports = bot => {
                         chat_id: ctx.chat.id,
                         title: ctx.chat.title,
                         lang: 'en',
+                        filter: 0,
                         created_at: new Date().toString(),
                         welcome_message: '',
                         welcome_enabled: false,
