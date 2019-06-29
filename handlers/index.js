@@ -7,7 +7,8 @@ const handlers = [
     'commands/welcome',
     'groups/newMember',
     'groups/gban',
-    'groups/gkick'
+    'groups/gkick',
+    'groups/gmute'
 ];
 
 module.exports = bot =>
