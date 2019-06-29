@@ -8,7 +8,7 @@ module.exports = bot => {
         const [, query] = ctx.match;
         ud.term(query, (error, entries, tags, sounds) => {
             if (error) {
-                return ctx.reply('No definition found!');
+                return ctx.reply('❌ No definition found. ');
             } else {
                 const total = entries.length;
                 const entry = entries[0];
