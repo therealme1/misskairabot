@@ -20,7 +20,7 @@ module.exports = bot => {
                             `urban_${Buffer.from(query).toString('base64')}_0`
                         ),
                         Markup.callbackButton(
-                            `1/${total}`,
+                            `1/${total - 1}`,
                             `urban_${Buffer.from(query).toString(
                                 'base64'
                             )}_${total - 1}`
@@ -46,6 +46,7 @@ module.exports = bot => {
                 if (total - 1 < to_page) {
                     to_page = total - 1;
                 }
+                console.log(to_page);
                 const entry = entries[to_page];
                 await ctx.editMessageText(
                     filter.clean(entry.definition),
@@ -57,7 +58,7 @@ module.exports = bot => {
                             )}_${to_page - 1}`
                         ),
                         Markup.callbackButton(
-                            `${to_page}/${total - 1}`,
+                            `${parseInt(to_page) + 1}/${total - 1}`,
                             `urban_${Buffer.from(query).toString(
                                 'base64'
                             )}_${total - 1}`
