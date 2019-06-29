@@ -9,6 +9,7 @@ module.exports = bot => {
     bot.use(async (ctx, next) => {
         if (await ctx.isUserAdmin()) return next();
         const { message, chat } = ctx;
+        if (!message) return next();
         if (LOCKS[chat.id]) {
             const locks = LOCKS[chat.id];
             const disabled = Object.keys(locks).filter(f => !locks[f]);

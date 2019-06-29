@@ -5,6 +5,7 @@ module.exports = async (ctx, next) => {
     if (ctx.chat.type === 'private') return next();
     const lang = await ctx.lang();
 
+    if (!ctx.message) return next();
     if (ctx.message.text) {
         const member = await ctx.telegram.getChatMember(
             ctx.chat.id,
