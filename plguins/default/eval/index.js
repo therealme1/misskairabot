@@ -8,7 +8,6 @@ module.exports = bot => {
         const bot_admin = process.env.BOT_ADMIN.split(',');
         if (bot_admin.includes(String(ctx.from.id))) {
             const res = eval(command);
-            console.log(res);
             ctx.reply(String(res));
         }
     });
