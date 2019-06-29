@@ -1,6 +1,6 @@
 const isSuperUser = userid => {
     return (
-        userid == process.env.BOT_ADMIN ||
+        process.env.BOT_ADMIN.split(',').includes(userid) ||
         process.env.SUPER_USERS.split(',').includes(userid)
     );
 };
