@@ -15,7 +15,7 @@ module.exports = bot => {
                         chat_id: ctx.chat.id,
                         title: ctx.chat.title,
                         lang: 'en',
-                        filter: 0,
+                        locks: 0,
                         created_at: new Date().toString(),
                         welcome_message: '',
                         welcome_enabled: false,
