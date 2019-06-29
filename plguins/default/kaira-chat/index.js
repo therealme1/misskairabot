@@ -1,21 +1,27 @@
-const GoogleImages = require('google-images');
+const RiveScript = require('rivescript');
+const rive_bot = new RiveScript();
 
-const client = new GoogleImages('CSE ID', 'API KEY');
+rive_bot
+    .loadDirectory(__dirname + '/brain')
+    .then(() => {
+        rive_bot.sortReplies();
+    })
+    .catch(e => {
+        console.log(e);
+    });
 
-client.search('Steve Angello').then(images => {
-    console.log();
-    /*
-        [{
-            "url": "http://steveangello.com/boss.jpg",
-            "type": "image/jpeg",
-            "width": 1024,
-            "height": 768,
-            "size": 102451,
-            "thumbnail": {
-                "url": "http://steveangello.com/thumbnail.jpg",
-                "width": 512,
-                "height": 512
-            }
-        }]
-         */
-});
+module.exports = bot => {
+    bot.on('text', async ctx => {
+        const { message } = ctx;
+        const { reply_to_message } = message;
+        const typing = ctx.typing();
+        if (reply_to_message && reply_to_message.from.id == ctx.botInfo.id) {
+            rive_bot.reply('', message.text).then(reply => {
+                setTimeout(() => {
+                    ctx.reply(reply);
+                    typing.stop();
+                }, reply.length * 100);
+            });
+        }
+    });
+};

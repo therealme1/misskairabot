@@ -4,8 +4,8 @@ const Telegraf = require('telegraf');
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
 const middlewares = ['checkForAdmin', 'addUserToDb'];
-const contexts = ['args', 'lang', 'reply', 'admin', 'mentionedUser'];
-const plugins = ['ping', 'locks', 'urban-dictionary', 'eval']; // default plugins
+const contexts = ['args', 'lang', 'typing', 'reply', 'admin', 'mentionedUser'];
+const plugins = ['ping', 'locks', 'urban-dictionary', 'kaira-chat', 'eval']; // default plugins
 
 contexts.forEach(ctx => {
     require(`./context/${ctx}`)(bot);
