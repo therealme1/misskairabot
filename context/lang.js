@@ -21,6 +21,6 @@ module.exports = bot => {
             .where({
                 chat_id: this.chat.id
             });
-        return group[0].lang || 'en';
+        return group[0] ? group[0].lang : 'en';
     };
 };

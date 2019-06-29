@@ -1,6 +1,9 @@
 let admin_commands = ['ban', 'kick', 'unban', 'purge'];
+const i18n = require('../utils/i18n');
+
 module.exports = async (ctx, next) => {
     if (ctx.chat.type === 'private') return next();
+    const lang = await ctx.lang();
 
     if (ctx.message.text) {
         const member = await ctx.telegram.getChatMember(
@@ -15,7 +18,7 @@ module.exports = async (ctx, next) => {
         if (!command) return next();
         if (admin_commands.includes(command[1])) {
             if (is_user_admon) return next();
-            else return ctx.reply('only_for_admin');
+            else return ctx.reply(i18n(lang, 'only_for_admin'));
         } else return next();
     } else next();
 };
