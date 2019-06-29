@@ -17,6 +17,7 @@
         "knex": "^0.17.6",
         "new-i18n": "^1.2.0",
         "node-nlp": "^3.2.0",
+        "request": "^2.88.0",
         "rivescript": "^2.0.0",
         "sqlite3": "^4.0.9",
         "telegraf": "^3.30.1",
