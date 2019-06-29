@@ -3,8 +3,9 @@ const i18n = require('../../utils/i18n');
 
 const CONDITIONS_FOR_SUPER_USER = [
     'You must be a contributor',
-    'You must be in more than 10 telegram groups',
-    'You must understand English language',
+    'You must be in more than 15 telegram groups',
+    'You must be an admin of more than 5 groups',
+    'You must understand english language',
     'You must be active on telegram'
 ];
 
@@ -16,12 +17,12 @@ module.exports = bot => {
                 case 'help_superuser':
                     let conditions = '';
                     CONDITIONS_FOR_SUPER_USER.forEach((c, index) => {
-                        conditions += `${index + 1} ${c}\n`;
+                        conditions += `${index + 1}. ${c}\n`;
                     });
                     ctx.reply(
                         `Following are the conditions to become super user for ${
                             ctx.botInfo.username
-                        }:\n${conditions}`
+                        }:\n\n${conditions}`
                     );
             }
         } else
