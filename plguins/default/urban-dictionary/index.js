@@ -10,27 +10,35 @@ module.exports = bot => {
             if (error) {
                 return ctx.reply('❌ No definition found. ');
             } else {
-                const total = entries.length;
-                const entry = entries[0];
-                ctx.reply(
-                    filter.clean(entry.definition),
-                    Markup.inlineKeyboard([
-                        Markup.callbackButton(
-                            ' ⬅️',
-                            `urban_${Buffer.from(query).toString('base64')}_0`
-                        ),
-                        Markup.callbackButton(
-                            `1/${total - 1}`,
-                            `urban_${Buffer.from(query).toString(
-                                'base64'
-                            )}_${total - 1}`
-                        ),
-                        Markup.callbackButton(
-                            ' ➡️',
-                            `urban_${Buffer.from(query).toString('base64')}_1`
-                        )
-                    ]).extra()
-                );
+                try {
+                    const total = entries.length;
+                    const entry = entries[0];
+                    ctx.reply(
+                        filter.clean(entry.definition),
+                        Markup.inlineKeyboard([
+                            Markup.callbackButton(
+                                ' ⬅️',
+                                `urban_${Buffer.from(query).toString(
+                                    'base64'
+                                )}_0`
+                            ),
+                            Markup.callbackButton(
+                                `1/${total - 1}`,
+                                `urban_${Buffer.from(query).toString(
+                                    'base64'
+                                )}_${total - 1}`
+                            ),
+                            Markup.callbackButton(
+                                ' ➡️',
+                                `urban_${Buffer.from(query).toString(
+                                    'base64'
+                                )}_1`
+                            )
+                        ]).extra()
+                    );
+                } catch (e) {
+                    ctx.reply('Something went wrong!!');
+                }
             }
         });
     });
