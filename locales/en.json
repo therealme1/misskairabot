@@ -3,6 +3,7 @@
         "private": "Hi <b>{{name}}</b>! Private",
         "group": "Hi <b>{{name}}</b>! Group"
     },
+    "only_for_admin": "Sorry, this command is limited to group administrators only.",
     "tag": {
         "empty": "No tags have been set in this group.",
         "display_tags": "Lists of tags for {{title}}:\n{{tags}}\nYou can retrieve above tags using <code>#tags</code>."

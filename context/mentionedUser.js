@@ -9,7 +9,8 @@ module.exports = bot => {
         );
         if (reply !== undefined) {
             return {
-                user_id: reply.from.id
+                user_id: reply.from.id,
+                first_name: reply.from.first_name
             };
         } else if (entity !== undefined) {
             const _user = message.text.substring(
