@@ -46,7 +46,6 @@ module.exports = bot => {
                 if (total - 1 < to_page) {
                     to_page = total - 1;
                 }
-                console.log(to_page);
                 const entry = entries[to_page];
                 await ctx.editMessageText(
                     filter.clean(entry.definition),
