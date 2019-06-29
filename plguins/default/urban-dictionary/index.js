@@ -9,7 +9,7 @@ module.exports = bot => {
             if (error) {
                 return ctx.reply('No defination found!');
             } else {
-                const random = Math.floor(Math.random() * entries.length + 1);
+                const random = Math.floor(Math.random() * entries.length);
                 const entry = entries[random];
                 ctx.reply(filter.clean(entry.definition));
             }
