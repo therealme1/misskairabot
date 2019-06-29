@@ -14,8 +14,8 @@ module.exports = bot => {
     bot.on('text', async ctx => {
         const { message } = ctx;
         const { reply_to_message } = message;
-        const typing = ctx.typing();
         if (reply_to_message && reply_to_message.from.id == ctx.botInfo.id) {
+            const typing = ctx.typing();
             rive_bot.reply('', message.text).then(reply => {
                 setTimeout(() => {
                     ctx.reply(reply);
