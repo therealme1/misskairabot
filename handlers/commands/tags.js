@@ -62,7 +62,7 @@ module.exports = bot => {
         }
         // TODO: Always reply deleted, and add confirmation buttons before deleting.
     });
-    bot.command('tags', async ctx => {
+    bot.command(['tags', 'notes'], async ctx => {
         const lang = await ctx.lang();
         let message = '';
 
