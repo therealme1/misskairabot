@@ -11,7 +11,7 @@ rive_bot
     });
 
 module.exports = bot => {
-    bot.on('text', async ctx => {
+    bot.on('text', async (ctx, next) => {
         const { message } = ctx;
         const { reply_to_message } = message;
         if (reply_to_message && reply_to_message.from.id == ctx.botInfo.id) {
@@ -23,5 +23,6 @@ module.exports = bot => {
                 }, reply.length * 100);
             });
         }
+        next();
     });
 };
