@@ -1,26 +1,25 @@
-const request = require('request');
+const axios = require('axios');
 
 module.exports = bot => {
-    bot.hears(/^kaira (.*)/, async ctx => {
+    bot.hears(/^grouper, (.*)/, async ctx => {
         const [, query] = ctx.match;
         const typing = ctx.typing();
-        request(
-            `https://api.duckduckgo.com/?q=${query}&format=json`,
-            (err, res, body) => {
-                try {
-                    const response = JSON.parse(body);
-                    const text = response.AbstractText;
-                    if (text) {
-                        ctx.reply(text);
-                    } else {
-                        ctx.reply('No result found.');
-                    }
-                } catch (e) {
-                    ctx.reply('There was an error.');
-                } finally {
-                    typing.stop();
-                }
-            }
+        const { data: response } = await axios.get(
+            `https://api.duckduckgo.com/?q=${query}&format=json`
         );
+
+        try {
+            const text = response.AbstractText;
+
+            if (text) {
+                ctx.reply(text);
+            } else {
+                ctx.reply('No results found.');
+            }
+        } catch (e) {
+            ctx.reply('There was an error.');
+        } finally {
+            typing.stop();
+        }
     });
 };
