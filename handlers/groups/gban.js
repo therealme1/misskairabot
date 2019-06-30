@@ -1,10 +1,11 @@
 const isSuperUser = require('../../utils/super-user');
 const { Markup } = require('telegraf');
 const db = require('../../db');
-// Todo: Marge gmute and gban in one file
+
+// Todo: Merge gmute and gban in one file
 module.exports = bot => {
     bot.command('gban', async ctx => {
-        const { chat, from } = ctx;
+        const { from } = ctx;
         if (isSuperUser(from.id)) {
             const mentioned = await ctx.getMentioned();
             if (!mentioned.user_id)
@@ -29,16 +30,16 @@ module.exports = bot => {
                         try {
                             group.chat_id !== ctx.chat.id
                                 ? bot.telegram.sendMessage(
-                                      group.chat_id,
-                                      `Incoming global ban for <a href="tg://user?id=${
-                                          mentioned.user_id
-                                      }">${
-                                          mentioned.first_name
-                                      }</a>.\nReason: <b>${reason}</b>`,
-                                      {
-                                          parse_mode: 'Html'
-                                      }
-                                  )
+                                    group.chat_id,
+                                    `Incoming global ban for <a href="tg://user?id=${
+                                        mentioned.user_id
+                                    }">${
+                                        mentioned.first_name
+                                    }</a>.\nReason: <b>${reason}</b>`,
+                                    {
+                                        parse_mode: 'Html'
+                                    }
+                                )
                                 : null;
                             await bot.telegram.kickChatMember(
                                 group.chat_id,
@@ -73,7 +74,7 @@ module.exports = bot => {
                 });
         } else {
             ctx.reply(
-                "Sorry, this command is limited to bot's super users.",
+                'Sorry, this command is limited to bot\'s super users.',
                 Markup.inlineKeyboard([
                     Markup.urlButton(
                         'How to become super user?',
@@ -86,7 +87,7 @@ module.exports = bot => {
         }
     });
     bot.command('ungban', async ctx => {
-        const { chat, from } = ctx;
+        const { from } = ctx;
         if (isSuperUser(from.id)) {
             const mentioned = await ctx.getMentioned();
             if (!mentioned.user_id)
@@ -111,16 +112,16 @@ module.exports = bot => {
                         try {
                             group.chat_id !== ctx.chat.id
                                 ? bot.telegram.sendMessage(
-                                      group.chat_id,
-                                      `Incoming global unban for <a href="tg://user?id=${
-                                          mentioned.user_id
-                                      }">${
-                                          mentioned.first_name
-                                      }</a>.\nReason: <b>${reason}</b>`,
-                                      {
-                                          parse_mode: 'Html'
-                                      }
-                                  )
+                                    group.chat_id,
+                                    `Incoming global unban for <a href="tg://user?id=${
+                                        mentioned.user_id
+                                    }">${
+                                        mentioned.first_name
+                                    }</a>.\nReason: <b>${reason}</b>`,
+                                    {
+                                        parse_mode: 'Html'
+                                    }
+                                )
                                 : null;
                             await bot.telegram.unbanChatMember(
                                 group.chat_id,
@@ -155,7 +156,7 @@ module.exports = bot => {
                 });
         } else {
             ctx.reply(
-                "Sorry, this command is limited to bot's super users.",
+                'Sorry, this command is limited to bot\'s super users.',
                 Markup.inlineKeyboard([
                     Markup.urlButton(
                         'How to become super user?',

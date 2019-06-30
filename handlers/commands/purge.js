@@ -13,7 +13,7 @@ module.exports = bot => {
             ctx.deleteMessage().catch(() => {});
 
             for (let id = endMessage; id >= startMessage; id--) {
-                ctx.deleteMessage(id).catch(err => {});
+                ctx.deleteMessage(id).catch(() => {});
             }
         } else {
             return ctx.reply('no_replied_to_message');

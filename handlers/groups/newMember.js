@@ -28,7 +28,7 @@ module.exports = bot => {
             } else {
                 const group = await db('groups').where({ chat_id: chat.id });
                 if (group[0].welcome_enabled) {
-                    let p = welcomeParser(group[0].welcome_message);
+                    const p = welcomeParser(group[0].welcome_message);
                     ctx.reply(
                         p.text,
                         Object.assign(p.extra, {
@@ -44,12 +44,9 @@ module.exports = bot => {
                 const { status } = user[0];
                 switch (status) {
                     case 'gbanned':
-                        try {
-                        } catch (e) {}
                         break;
+
                     case 'gmuted':
-                        try {
-                        } catch (e) {}
                         break;
                 }
             }

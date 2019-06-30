@@ -1,12 +1,12 @@
 const ud = require('urban-dictionary');
 const Filter = require('bad-words');
 const filter = new Filter();
-const { Markup, Extra } = require('telegraf');
+const { Markup } = require('telegraf');
 
 module.exports = bot => {
     bot.hears(/^\? (.*)/, async ctx => {
         const [, query] = ctx.match;
-        ud.term(query, (error, entries, tags, sounds) => {
+        ud.term(query, (error, entries) => {
             if (error) {
                 return ctx.reply('❌ No definition found. ');
             } else {
@@ -46,7 +46,7 @@ module.exports = bot => {
     bot.action(/urban_(.*)_(\d+)/, async ctx => {
         let [, query_, to_page] = ctx.match;
         const query = Buffer.from(query_, 'base64').toString();
-        ud.term(query, async (error, entries, tags, sounds) => {
+        ud.term(query, async (error, entries) => {
             if (error) {
                 return ctx.reply('No definition found!');
             } else {

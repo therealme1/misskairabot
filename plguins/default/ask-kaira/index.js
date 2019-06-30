@@ -15,8 +15,11 @@ module.exports = bot => {
                     } else {
                         ctx.reply('No result found.');
                     }
-                    return typing.stop();
-                } catch (e) {}
+                } catch (e) {
+                    ctx.reply('There was an error.');
+                } finally {
+                    typing.stop();
+                }
             }
         );
     });

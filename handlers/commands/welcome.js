@@ -3,11 +3,10 @@ const i18n = require('../../utils/i18n');
 
 module.exports = bot => {
     bot.hears(/\/setwelcome (.*)/, async ctx => {
-        let [, message] = ctx.match;
+        const [, message] = ctx.match;
         const lang = await ctx.lang();
 
-        if (ctx.message.reply_to_message) {
-        } else {
+        if (!ctx.message.reply_to_message) {
             await db('groups')
                 .where({ chat_id: ctx.chat.id })
                 .update({

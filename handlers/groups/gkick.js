@@ -4,7 +4,7 @@ const db = require('../../db');
 
 module.exports = bot => {
     bot.command('gkick', async ctx => {
-        const { chat, from } = ctx;
+        const { from } = ctx;
         if (isSuperUser(from.id)) {
             const mentioned = await ctx.getMentioned();
             if (!mentioned.user_id)
@@ -29,16 +29,16 @@ module.exports = bot => {
                         try {
                             group.chat_id !== ctx.chat.id
                                 ? bot.telegram.sendMessage(
-                                      group.chat_id,
-                                      `<a href="tg://user?id=${
-                                          mentioned.user_id
-                                      }">${
-                                          mentioned.first_name
-                                      }</a> has received a global kick.\nReason: <b>${reason}</b>`,
-                                      {
-                                          parse_mode: 'Html'
-                                      }
-                                  )
+                                    group.chat_id,
+                                    `<a href="tg://user?id=${
+                                        mentioned.user_id
+                                    }">${
+                                        mentioned.first_name
+                                    }</a> has received a global kick.\nReason: <b>${reason}</b>`,
+                                    {
+                                        parse_mode: 'Html'
+                                    }
+                                )
                                 : null;
                             await bot.telegram.unbanChatMember(
                                 group.chat_id,
@@ -66,7 +66,7 @@ module.exports = bot => {
                 });
         } else {
             ctx.reply(
-                "Sorry, this command is limited to bot's super users.",
+                'Sorry, this command is limited to bot\'s super users.',
                 Markup.inlineKeyboard([
                     Markup.urlButton(
                         'How to become super user?',

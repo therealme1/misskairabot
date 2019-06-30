@@ -1,4 +1,4 @@
-let admin_commands = ['ban', 'kick', 'unban', 'purge'];
+const admin_commands = ['ban', 'kick', 'unban', 'purge'];
 const i18n = require('../utils/i18n');
 
 module.exports = async (ctx, next) => {

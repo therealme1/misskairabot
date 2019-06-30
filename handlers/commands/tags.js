@@ -33,7 +33,7 @@ module.exports = bot => {
             tag_name = param.match(/^(\w+) (.*)/)[1];
             tag_value = param.match(/^(\w+) (.*)/)[2];
         }
-        let _tags = await db('tags').where({
+        const _tags = await db('tags').where({
             chat_id: ctx.chat.id,
             name: tag_name
         });
@@ -66,7 +66,7 @@ module.exports = bot => {
         const lang = await ctx.lang();
         let message = '';
 
-        let tags = await db('tags').where({
+        const tags = await db('tags').where({
             chat_id: ctx.chat.id
         });
         if (tags.length > 0) {
@@ -92,8 +92,8 @@ module.exports = bot => {
         if (tag.length > 0) {
             return tag[0].text.startsWith('file_')
                 ? ctx.replyWithDocument(tag[0].text.replace('file_', ''), {
-                      reply_to_message_id: ctx.message.message_id
-                  })
+                    reply_to_message_id: ctx.message.message_id
+                })
                 : ctx.reply(tag[0].text);
         }
     });

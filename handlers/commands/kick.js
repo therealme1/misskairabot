@@ -4,7 +4,7 @@ module.exports = bot => {
     bot.command('kick', async ctx => {
         const mentioned = await ctx.getMentioned();
         const lang = await ctx.lang();
-        return;
+
         if (mentioned.user_id) {
             try {
                 await bot.telegram.unbanChatMember(

@@ -1,5 +1,5 @@
 const db = require('../../../db');
-const { Markup, Extra } = require('telegraf');
+const { Markup } = require('telegraf');
 const types = require('./types');
 const i18n = require('../../../utils/i18n');
 
@@ -19,7 +19,6 @@ module.exports = bot => {
                     break;
                 }
             }
-        } else {
         }
         next();
     });

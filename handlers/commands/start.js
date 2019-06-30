@@ -12,9 +12,9 @@ const CONDITIONS_FOR_SUPER_USER = [
 module.exports = bot => {
     bot.start(async ctx => {
         if (ctx.args()) {
-            let param = ctx.args()[0];
+            const param = ctx.args()[0];
             switch (param) {
-                case 'help_superuser':
+                case 'help_superuser': {
                     let conditions = '';
                     CONDITIONS_FOR_SUPER_USER.forEach((c, index) => {
                         conditions += `${index + 1}. ${c}\n`;
@@ -24,6 +24,7 @@ module.exports = bot => {
                             ctx.botInfo.username
                         }:\n\n${conditions}`
                     );
+                }
             }
         } else
             ctx.reply(
