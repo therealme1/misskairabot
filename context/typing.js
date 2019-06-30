@@ -3,12 +3,9 @@ module.exports = bot => {
         bot.telegram.sendChatAction(this.chat.id, action);
     };
 
-    bot.context.typing = function() {
-        const interval = setInterval(
-            () => this.sendChatAction('file_sending'),
-            4000
-        );
-        this.sendChatAction('typing');
+    bot.context.typing = function(action = 'typing') {
+        const interval = setInterval(() => this.sendChatAction(action), 4000);
+        this.sendChatAction(action);
 
         const stop = () => clearInterval(interval);
         return { stop };
