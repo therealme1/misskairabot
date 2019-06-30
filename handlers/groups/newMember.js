@@ -29,12 +29,10 @@ module.exports = bot => {
                 const group = await db('groups').where({ chat_id: chat.id });
                 if (group[0].welcome_enabled) {
                     const p = welcomeParser(group[0].welcome_message);
-                    ctx.reply(
-                        p.text,
-                        Object.assign(p.extra, {
-                            reply_to_message_id: ctx.message.message_id
-                        })
-                    );
+                    ctx.reply(p.text, {
+                        ...p.extra,
+                        reply_to_message_id: ctx.message.message_id
+                    });
                 }
             }
 
