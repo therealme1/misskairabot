@@ -7,84 +7,89 @@ const LOCKS = [];
 
 module.exports = bot => {
     bot.use(async (ctx, next) => {
-        if (await ctx.isUserAdmin()) return next();
         const { message, chat } = ctx;
-        if (!message) return next();
-        if (LOCKS[chat.id]) {
-            const locks = LOCKS[chat.id];
-            const disabled = Object.keys(locks).filter(f => !locks[f]);
-            for (var i = 0; i < disabled.length; i++) {
-                if (message[disabled[i]]) {
-                    ctx.deleteMessage();
-                    break;
-                }
+        if (!message || (await ctx.isUserAdmin())) return next();
+
+        let locks = LOCKS[chat.id];
+
+        if (!LOCKS[chat.id]) {
+            locks = await db('groups')
+                .where({ chat_id: ctx.chat.id })
+                .first('locks');
+
+            locks = JSON.parse(locks.locks);
+            // eslint-disable-next-line require-atomic-updates
+            LOCKS[chat.id] = locks;
+        }
+
+        const disabled = Object.keys(locks).filter(f => !locks[f]);
+        for (var i = 0; i < disabled.length; i++) {
+            if (message[disabled[i]]) {
+                ctx.deleteMessage();
+                // Return istead of break so it doesn't trigger any commands
+                return;
             }
         }
+
         next();
     });
-    bot.command(['lock', 'locks'], async ctx => {
+
+    bot.command('locks', async ctx => {
         const lang = await ctx.lang();
-        let [locks] = await db('groups')
+
+        let { locks } = await db('groups')
             .where({ chat_id: ctx.chat.id })
-            .select('locks');
-        if (locks.locks === 0) {
-            locks = {};
-            Object.keys(types).forEach(type => {
-                locks[type] = true;
-            });
-        } else {
-            locks = JSON.parse(locks.locks);
-        }
+            .first('locks');
+
+        locks = JSON.parse(locks);
         LOCKS[ctx.chat.id] = locks;
+
         ctx.reply(
             i18n(lang, 'lock.locks'),
             Markup.inlineKeyboard(
                 Object.keys(types).map(type => [
                     Markup.callbackButton(
-                        `${locks[type] ? '✅' : '❌'} ${types[type]}`,
-                        `toggle_filter_${type}`
+                        `${locks[type] !== false ? '✅' : '❌'} ${types[type]}`,
+                        `lock:${type}`
                     )
                 ])
             ).extra()
         );
     });
 
-    bot.action(/toggle_filter_(\w+)/, async ctx => {
+    bot.action(/^lock:(\w+)$/, async ctx => {
         const lang = await ctx.lang();
         if (!(await ctx.isUserAdmin())) {
             return ctx.answerCbQuery(i18n(lang, 'only_for_admin'));
         }
         const [, to_toggle] = ctx.match;
-        let [locks] = await db('groups')
+
+        let { locks } = await db('groups')
             .where({ chat_id: ctx.chat.id })
-            .select('locks');
-        locks = locks.locks;
-        let final = {};
-        if (locks == 0) {
-            Object.keys(types).forEach(type => {
-                final[type] = true;
-            });
-        } else final = JSON.parse(locks);
-        final[to_toggle] = !final[to_toggle];
-        LOCKS[ctx.chat.id] = final;
-        db('groups')
+            .first('locks');
+
+        locks = JSON.parse(locks);
+        locks[to_toggle] = !locks[to_toggle];
+        LOCKS[ctx.chat.id] = locks;
+
+        await db('groups')
             .where({ chat_id: ctx.chat.id })
             .update({
-                locks: JSON.stringify(final)
-            })
-            .then(async () => {
-                await ctx.editMessageText(
-                    i18n(lang, 'lock.locks'),
-                    Markup.inlineKeyboard(
-                        Object.keys(types).map(type => [
-                            Markup.callbackButton(
-                                `${final[type] ? '✅' : '❌'} ${types[type]}`,
-                                `toggle_filter_${type}`
-                            )
-                        ])
-                    ).extra()
-                );
-                ctx.answerCbQuery(i18n(lang, 'lock.updated'));
+                locks: JSON.stringify(locks)
             });
+
+        await ctx.editMessageText(
+            i18n(lang, 'lock.locks'),
+            Markup.inlineKeyboard(
+                Object.keys(types).map(type => [
+                    Markup.callbackButton(
+                        `${locks[type] !== false ? '✅' : '❌'} ${types[type]}`,
+                        `lock:${type}`
+                    )
+                ])
+            ).extra()
+        );
+
+        ctx.answerCbQuery(i18n(lang, 'lock.updated'));
     });
 };
