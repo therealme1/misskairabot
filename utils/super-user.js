@@ -5,4 +5,11 @@ const isSuperUser = userid => {
     );
 };
 
+const middleware = (ctx, next) => {
+    if (isSuperUser(ctx.from.id)) {
+        next();
+    }
+};
+
 module.exports = isSuperUser;
+module.exports.middleware = middleware;
