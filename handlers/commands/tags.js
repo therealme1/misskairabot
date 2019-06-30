@@ -1,10 +1,10 @@
 const i18n = require('../../utils/i18n');
 const db = require('../../db');
 module.exports = bot => {
-    bot.hears(/\/tag (.*)/, async ctx => {
+    bot.command('tag', async ctx => {
         let { message } = ctx;
         const lang = await ctx.lang();
-        const [, param] = ctx.match;
+        const param = ctx.args().join(' ');
         let tag_name = param,
             tag_value,
             caption;
@@ -30,9 +30,9 @@ module.exports = bot => {
                 return ctx.reply(i18n(lang, 'tag.invalid_usage'));
             }
         } else if (param.match(/^(\w+) (.*)/)) {
-            tag_name = param.match(/^(\w+) (.*)/)[1];
-            tag_value = param.match(/^(\w+) (.*)/)[2];
+            [, tag_name, tag_value] = param.match(/^(\w+) (.*)/);
         }
+
         const _tags = await db('tags').where({
             chat_id: ctx.chat.id,
             name: tag_name
@@ -50,8 +50,10 @@ module.exports = bot => {
             return ctx.reply(i18n(lang, 'tag.added'));
         }
     });
-    bot.hears(/^\/deltag (\w+)$/, async ctx => {
-        const [, name] = ctx.match;
+
+    bot.command('deltag', async ctx => {
+        const name = ctx.args().join(' ');
+
         try {
             await db('tags')
                 .where({ chat_id: ctx.chat.id, name: name })
@@ -62,6 +64,7 @@ module.exports = bot => {
         }
         // TODO: Always reply deleted, and add confirmation buttons before deleting.
     });
+
     bot.command(['tags', 'notes'], async ctx => {
         const lang = await ctx.lang();
         let message = '';
@@ -73,22 +76,23 @@ module.exports = bot => {
             tags.forEach(tag => {
                 message += `◕ <code>${tag.name}</code>\n`;
             });
+
             ctx.reply(
                 i18n(lang, 'tag.display_tags', {
                     tags: message,
                     title: ctx.chat.title
                 }),
-                {
-                    parse_mode: 'Html'
-                }
+                { parse_mode: 'html' }
             );
         } else return ctx.reply(i18n(lang, 'tag.empty'));
     });
+
     bot.hears(/^#(\w+)\b/, async ctx => {
         const tag = await db('tags').where({
             chat_id: ctx.chat.id,
             name: ctx.match[1]
         });
+
         if (tag.length > 0) {
             return tag[0].text.startsWith('file_')
                 ? ctx.replyWithDocument(tag[0].text.replace('file_', ''), {

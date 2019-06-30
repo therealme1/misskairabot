@@ -2,8 +2,8 @@ const db = require('../../db');
 const i18n = require('../../utils/i18n');
 
 module.exports = bot => {
-    bot.hears(/\/setwelcome (.*)/, async ctx => {
-        const [, message] = ctx.match;
+    bot.command('setwelcome', async ctx => {
+        const message = ctx.args().join(' ');
         const lang = await ctx.lang();
 
         if (!ctx.message.reply_to_message) {
