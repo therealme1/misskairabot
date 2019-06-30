@@ -15,8 +15,8 @@ module.exports = bot => {
                         chat_id: ctx.chat.id,
                         title: ctx.chat.title,
                         lang: 'en',
-                        locks: 0,
-                        created_at: new Date().toString(),
+                        locks: '{}',
+                        created_at: new Date().toUTCString(),
                         welcome_message: '',
                         welcome_enabled: false,
                         welcome_lp: true
@@ -37,16 +37,36 @@ module.exports = bot => {
                     );
                 }
             }
+
             const user = await db('users')
-                .select()
-                .where('user_id', member.id);
-            if (user.length > 0) {
-                const { status } = user[0];
+                .where('user_id', member.id)
+                .first();
+
+            if (user) {
+                const { status } = user;
+
                 switch (status) {
                     case 'gbanned':
+                        await bot.telegram.kickChatMember(
+                            ctx.chat.id,
+                            user.user_id
+                        );
+
+                        ctx.reply(
+                            'This user is globally banned. I\'ve banned them from this group.'
+                        );
                         break;
 
                     case 'gmuted':
+                        await bot.telegram.restrictChatMember(
+                            ctx.chat.id,
+                            user.user_id,
+                            { can_send_messages: false }
+                        );
+
+                        ctx.reply(
+                            'This user is globally muted. I\'ve muted them in this group.'
+                        );
                         break;
                 }
             }
