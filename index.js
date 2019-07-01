@@ -11,7 +11,8 @@ const plugins = [
     'urban-dictionary',
     'ask-kaira',
     'kaira-chat',
-    'eval'
+    'eval',
+    'sed'
 ]; // default plugins
 
 contexts.forEach(ctx => {

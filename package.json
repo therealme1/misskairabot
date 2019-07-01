@@ -16,6 +16,7 @@
         "dotenv": "^8.0.0",
         "google-images": "^2.1.0",
         "knex": "^0.17.6",
+        "multiprocessing": "^1.2.0",
         "new-i18n": "^1.2.0",
         "node-nlp": "^3.2.0",
         "rivescript": "^2.0.0",
