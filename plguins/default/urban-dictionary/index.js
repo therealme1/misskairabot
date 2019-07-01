@@ -4,7 +4,7 @@ const filter = new Filter();
 const { Markup } = require('telegraf');
 
 module.exports = bot => {
-    bot.hears(/^\? ?(.*)/, async ctx => {
+    bot.hears(/^\? (.*)/, async ctx => {
         const [, query] = ctx.match;
         ud.term(query, (error, entries) => {
             if (error) {
