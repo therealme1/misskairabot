@@ -3,6 +3,7 @@
         "private": "Hi <b>{{name}}</b>! Private",
         "group": "Hi <b>{{name}}</b>! Group"
     },
+    "no_mentioned_user": "Please mention a user.",
     "only_for_admin": "Sorry, this command is limited to group administrators only.",
     "tag": {
         "empty": "No tags have been set in this group.",

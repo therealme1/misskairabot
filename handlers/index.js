@@ -5,6 +5,7 @@ const handlers = [
     'commands/kick',
     'commands/purge',
     'commands/welcome',
+    'commands/warns',
     'groups/newMember',
     'groups/gban',
     'groups/gkick',
