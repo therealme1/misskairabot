@@ -20,7 +20,8 @@ const plugins = [
     'ask-kaira',
     'kaira-chat',
     'eval',
-    'sed'
+    'sed',
+    'github'
 ]; // default plugins
 
 contexts.forEach(ctx => {
