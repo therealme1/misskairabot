@@ -9,6 +9,8 @@ exports.up = function(knex, Promise) {
             table.boolean('human_verification');
             table.boolean('allow_bots');
             table.boolean('allow_rtl');
+            table.boolean('allow_non_username_users');
+
             table.boolean('flood_level');
             table.boolean('flood_level_action');
 

@@ -21,7 +21,8 @@ const plugins = [
     'kaira-chat',
     'eval',
     'sed',
-    'github'
+    'github',
+    'info'
 ]; // default plugins
 
 contexts.forEach(ctx => {
@@ -35,4 +36,5 @@ plugins.forEach(plugin => {
 });
 
 require('./handlers')(bot);
+require('./admin-panel');
 bot.launch();
