@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 module.exports = bot => {
-    bot.hears(/^grouper, (.*)/, async ctx => {
+    bot.hears(/^kaira, (.*)/, async ctx => {
         const [, query] = ctx.match;
         const typing = ctx.typing();
         const { data: response } = await axios.get(
