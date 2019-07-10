@@ -36,5 +36,5 @@ plugins.forEach(plugin => {
 });
 
 require('./handlers')(bot);
-require('./admin-panel');
+// require('./admin-panel');
 bot.launch();
