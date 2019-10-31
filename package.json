@@ -19,7 +19,7 @@
         "express": "^4.17.1",
         "google-images": "^2.1.0",
         "jsonwebtoken": "^8.5.1",
-        "knex": "^0.17.6",
+        "knex": "^0.19.5",
         "multiprocessing": "^1.2.0",
         "new-i18n": "^1.2.0",
         "node-nlp": "^3.2.0",
